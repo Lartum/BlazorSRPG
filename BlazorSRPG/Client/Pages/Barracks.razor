@@ -1,0 +1,31 @@
+﻿@page "/barracks"
+@inject IUnitService UnitService
+
+<h3>Barracks</h3>
+
+<table class="table">
+    @foreach (var userUnit in UnitService.MyUnits) 
+    {
+    <tr>
+    <td>
+        @switch (userUnit.UnitId)
+        {
+            case 1:<img src="icons/W_Sword006.png" /> break;
+            case 2: <img src="icons/S_Bow08.png" />break;
+            case 3: <img src="icons/C_Hat01.png" />break;
+        }
+    </td>
+    <td>
+        @UnitService.Units.First(unit => unit.Id == userUnit.UnitId).Title
+    </td>
+    <td>
+        @userUnit.HitPoints HP
+    </td>
+    </tr>
+    }
+</table>
+
+
+@code {
+
+}

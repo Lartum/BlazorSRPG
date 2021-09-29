@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorSRPG.Server", "BlazorSRPG\Server\BlazorSRPG.Server.csproj", "{690CFB6C-300D-4583-BD62-A817D2C5B7CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorSRPG.Server", "BlazorSRPG\Server\BlazorSRPG.Server.csproj", "{690CFB6C-300D-4583-BD62-A817D2C5B7CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorSRPG.Client", "BlazorSRPG\Client\BlazorSRPG.Client.csproj", "{45B118F0-F315-4F17-96E7-2AD13890B5DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorSRPG.Client", "BlazorSRPG\Client\BlazorSRPG.Client.csproj", "{45B118F0-F315-4F17-96E7-2AD13890B5DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorSRPG.Shared", "BlazorSRPG\Shared\BlazorSRPG.Shared.csproj", "{94A79CA1-ADC6-4BD9-B6F5-9D26BFFC1FCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorSRPG.Shared", "BlazorSRPG\Shared\BlazorSRPG.Shared.csproj", "{94A79CA1-ADC6-4BD9-B6F5-9D26BFFC1FCB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

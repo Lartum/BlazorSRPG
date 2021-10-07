@@ -2,6 +2,7 @@
 @inject IBananaService BananaService
 @inject IUnitService UnitService
 @inject IToastService ToastService
+@attribute [Authorize]
 
 <h3>Build unit</h3>
 <div class="form-group">
@@ -18,6 +19,11 @@
     int selectedUnitId = 1;
     bool inSufficientBananas = false;
 
+    protected override async Task OnInitializedAsync()
+    {
+        await UnitService.LoadUnitsAsync();
+    }
+
     private void BuildUnit()
     {
         var selectedUnit = UnitService.Units.FirstOrDefault(unit => unit.Id == selectedUnitId);
@@ -28,7 +34,7 @@
             return;
         }
         inSufficientBananas = false;
-        
+
         BananaService.ConsumeBananas(selectedUnit.BananaCost);
         UnitService.AddUnit(selectedUnitId);
     }

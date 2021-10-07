@@ -1,31 +1,39 @@
 ﻿@page "/barracks"
 @inject IUnitService UnitService
+@attribute [Authorize]
 
 <h3>Barracks</h3>
 
+@if(UnitService.Units.Count > 0) { 
 <table class="table">
-    @foreach (var userUnit in UnitService.MyUnits) 
+    @foreach (var userUnit in UnitService.MyUnits)
     {
-    <tr>
-    <td>
-        @switch (userUnit.UnitId)
-        {
-            case 1:<img src="icons/W_Sword006.png" /> break;
-            case 2: <img src="icons/S_Bow08.png" />break;
-            case 3: <img src="icons/C_Hat01.png" />break;
-        }
-    </td>
-    <td>
-        @UnitService.Units.First(unit => unit.Id == userUnit.UnitId).Title
-    </td>
-    <td>
-        @userUnit.HitPoints HP
-    </td>
-    </tr>
+        <tr>
+            <td>
+                @switch (userUnit.UnitId)
+                {
+                    case 1: <img src="icons/W_Sword006.png" /> break;
+                    case 2: <img src="icons/S_Bow08.png" />break;
+                    case 3: <img src="icons/C_Hat01.png" />break;
+                }
+            </td>
+            <td>
+                @UnitService.Units.First(unit => unit.Id == userUnit.UnitId).Title
+            </td>
+            <td>
+                @userUnit.HitPoints HP
+            </td>
+        </tr>
     }
 </table>
+} else { 
+<span>Loading your army</span>
+}
 
 
-@code {
-
+@code {      
+    protected override async Task OnInitializedAsync()
+    {
+        await UnitService.LoadUnitsAsync();
+    }
 }

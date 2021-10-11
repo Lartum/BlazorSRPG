@@ -19,12 +19,14 @@ namespace BlazorSRPG.Server.Controllers
         {
             _context = context;
         }
+
         [HttpGet]
         public async Task<IActionResult> GetUnits()
         {
             var units = await _context.Units.ToListAsync();
             return Ok(units);
         }
+
         [HttpPost("create")]
         public async Task<IActionResult> AddUnit(Unit unit)
         {
@@ -32,6 +34,7 @@ namespace BlazorSRPG.Server.Controllers
             await _context.SaveChangesAsync();
             return Ok(await _context.Units.ToListAsync());
         }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUnit(int id, Unit unit)
         {

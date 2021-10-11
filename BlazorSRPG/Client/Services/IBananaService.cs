@@ -10,6 +10,8 @@ namespace BlazorSRPG.Client.Services
         event Action OnChange;
         int Bananas { get; set; }
         void ConsumeBananas(int amount);
-        void AddBananas(int amount);
+        Task AddBananas(int amount);
+        Task GetBananas();
+
     }
 }

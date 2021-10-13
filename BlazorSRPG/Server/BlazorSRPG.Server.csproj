@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <Watch Remove="Controllers\AuthController.cs" />
+    <Watch Remove="Controllers\BattleController.cs" />
     <Watch Remove="Controllers\UnitController.cs" />
     <Watch Remove="Controllers\UserController.cs" />
     <Watch Remove="Controllers\UserUnitController.cs" />

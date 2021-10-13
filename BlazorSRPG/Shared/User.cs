@@ -15,6 +15,9 @@ namespace BlazorSRPG.Shared
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public int Bananas { get; set; }
+        public int Battles { get; set; }
+        public int Victories { get; set; }
+        public int Defeats { get; set; }
         public List<UserUnit> Units { get; set; }
         public bool IsConfirmed { get; set; }
         public bool IsDeleted { get; set; }

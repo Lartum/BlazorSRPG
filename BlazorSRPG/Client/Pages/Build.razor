@@ -17,25 +17,15 @@
 <button @onclick="BuildUnit" class="btn btn-info">Build</button>
 @code {
     int selectedUnitId = 1;
-    bool inSufficientBananas = false;
+
 
     protected override async Task OnInitializedAsync()
     {
         await UnitService.LoadUnitsAsync();
     }
 
-    private void BuildUnit()
+    private async Task BuildUnit()
     {
-        var selectedUnit = UnitService.Units.FirstOrDefault(unit => unit.Id == selectedUnitId);
-        if (BananaService.Bananas < selectedUnit.BananaCost)
-        {
-            inSufficientBananas = true;
-            ToastService.ShowError("General we need more bananas, to build this unit", "Not enough bananas");
-            return;
-        }
-        inSufficientBananas = false;
-
-        BananaService.ConsumeBananas(selectedUnit.BananaCost);
-        UnitService.AddUnit(selectedUnitId);
+        await UnitService.AddUnit(selectedUnitId);
     }
 }

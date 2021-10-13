@@ -26,6 +26,10 @@
         </tr>
     }
 </table>
+<center>
+    <button class="btn btn-primary" @onclick="ReviveArmy">Revive Army</button>
+</center>
+
 } else { 
 <span>Loading your army</span>
 }
@@ -35,5 +39,11 @@
     protected override async Task OnInitializedAsync()
     {
         await UnitService.LoadUnitsAsync();
+        await UnitService.LoadUserUnitAsync();
+    }
+
+    private async Task ReviveArmy ()
+    {
+        await UnitService.ReviveArmy();
     }
 }

@@ -29,7 +29,7 @@ namespace BlazorSRPG.Client
             builder.Services.AddOptions();
             builder.Services.AddAuthorizationCore();
             builder.Services.AddScoped<IAuthService, AuthService>();
-
+            builder.Services.AddScoped<ILeaderboardService, LeaderboardService>();
             await builder.Build().RunAsync();
         }
     }

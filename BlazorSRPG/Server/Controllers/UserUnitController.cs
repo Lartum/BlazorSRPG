@@ -26,6 +26,42 @@ namespace BlazorSRPG.Server.Controllers
             _utilityService = utilityService;
         }
 
+        [HttpPost("revivie")]
+
+        public async Task<IActionResult> ReviveArmy() 
+        {
+            var user = await _utilityService.GetUser();
+            var userUnits = await _context.UserUnits
+                            .Where(u => u.UserId == user.Id)
+                            .Include(u => u.Unit)
+                            .ToListAsync();
+            int BananaCost = 1000;
+
+            if(user.Bananas < BananaCost)
+            {
+                return BadRequest("Not enough bananas to revive the army");
+            }
+
+            bool armyAlreadyAlive = true;
+
+            foreach (var unit in userUnits)
+            {
+                if(unit.HitPoints <= 0)
+                {
+                    armyAlreadyAlive = false;
+                    unit.HitPoints = new Random().Next(0, unit.HitPoints);
+                }
+            }
+
+            if (armyAlreadyAlive)
+                return Ok("Your Army is Healthy");
+
+            user.Bananas -= BananaCost;
+
+            await _context.SaveChangesAsync();
+            return Ok("Army revived");
+        }
+
         [HttpPost]
         public async Task<IActionResult> BuildUserUnit ([FromBody] int unitId) {
             var unit = _context.Units.FirstOrDefault<Unit>(u => u.Id == unitId);

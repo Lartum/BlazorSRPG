@@ -26,8 +26,7 @@ namespace BlazorSRPG.Server.Controllers
             _utilityService = utilityService;
         }
 
-        [HttpPost("revivie")]
-
+        [HttpPost("revive")]
         public async Task<IActionResult> ReviveArmy() 
         {
             var user = await _utilityService.GetUser();
@@ -35,6 +34,7 @@ namespace BlazorSRPG.Server.Controllers
                             .Where(u => u.UserId == user.Id)
                             .Include(u => u.Unit)
                             .ToListAsync();
+
             int BananaCost = 1000;
 
             if(user.Bananas < BananaCost)
@@ -44,12 +44,21 @@ namespace BlazorSRPG.Server.Controllers
 
             bool armyAlreadyAlive = true;
 
-            foreach (var unit in userUnits)
+            foreach (var userUnit in userUnits)
             {
-                if(unit.HitPoints <= 0)
+                if(userUnit.HitPoints <= 0)
                 {
                     armyAlreadyAlive = false;
-                    unit.HitPoints = new Random().Next(0, unit.HitPoints);
+                    userUnit.HitPoints = new Random().Next(0, userUnit.Unit.Hitpoints);
+                }
+            }
+
+            var deadUnit = new Object();
+            foreach (var unit in userUnits)
+            {
+                if (unit.HitPoints <= 0)
+                {
+                    deadUnit = unit;
                 }
             }
 

@@ -15,14 +15,12 @@ namespace BlazorSRPG.Client.Services
         {
             _http = http;
         }
-
         public async Task<ServiceResponse<string>> Login(UserLogin request)
         {
             var res = await _http.PostAsJsonAsync("api/auth/login", request);
 
             return await res.Content.ReadFromJsonAsync<ServiceResponse<string>>();
         }
-
         public async Task<ServiceResponse<int>> Register(UserRegister request)
         {
             var res = await _http.PostAsJsonAsync("api/auth/register", request);

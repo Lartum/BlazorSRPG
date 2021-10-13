@@ -41,8 +41,7 @@ namespace BlazorSRPG.Server.Data
             }
             return response;
         }
-
-        public async Task<ServiceResponse<int>> Register(User user, string password)
+        public async Task<ServiceResponse<int>> Register(User user, string password, int startUnitId)
         {
             if(await UserExists(user.Email))
             {
@@ -52,8 +51,11 @@ namespace BlazorSRPG.Server.Data
             HashPassword(password, out byte[] passwordHash, out byte[] passwordSalt);
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
+
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
+            await AddStartingUnit(user, startUnitId);
+
             return new ServiceResponse<int> { Data = user.Id, Message = "User Registered successfully" };
         }
 
@@ -65,7 +67,6 @@ namespace BlazorSRPG.Server.Data
             }
             return false;
         }
-
         private void HashPassword(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using(var hmac = new HMACSHA512())
@@ -74,7 +75,6 @@ namespace BlazorSRPG.Server.Data
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
         }
-
         private bool VerifyPassword(string password, byte[] passwordHash, byte[] passwordSalt)
         {
             using (var hmac = new HMACSHA512(passwordSalt))
@@ -90,7 +90,6 @@ namespace BlazorSRPG.Server.Data
                 return true;
             }
         }
-
         private string GenerateToken(User user)
         {
             List<Claim> claims = new List<Claim>
@@ -112,6 +111,17 @@ namespace BlazorSRPG.Server.Data
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
 
             return jwt;
+        }
+        private async Task AddStartingUnit(User user, int startUnitId)
+        {
+            var unit = await _context.Units.FirstOrDefaultAsync(u => u.Id == startUnitId);
+            _context.UserUnits.Add(new UserUnit 
+            { 
+            UnitId = unit.Id,
+            UserId = user.Id,
+            HitPoints = unit.Hitpoints
+            });
+            await _context.SaveChangesAsync();
         }
     }
 }

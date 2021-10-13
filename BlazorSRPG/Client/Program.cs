@@ -30,6 +30,7 @@ namespace BlazorSRPG.Client
             builder.Services.AddAuthorizationCore();
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<ILeaderboardService, LeaderboardService>();
+            builder.Services.AddScoped<IBattleService, BattleService>();
             await builder.Build().RunAsync();
         }
     }
